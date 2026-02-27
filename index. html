@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunga Bersenja Gurau</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #1a0a0a; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script>
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            angleMode(DEGREES);
+            colorMode(HSB);
+        }
+
+        function draw() {
+            // Latar belakang warna langit senja yang gelap
+            background(10, 20, 10); 
+            translate(width / 2, height / 2);
+
+            // Membuat 250 titik kelopak
+            for (let n = 0; n < 250; n++) {
+                let a = n * 137.5; // Golden Angle
+                let r = 8 * sqrt(n);
+
+                let x = r * cos(a);
+                let y = r * sin(a);
+
+                // Efek "Bersenja Gurau" (goyangan halus seperti tertawa)
+                let sway = sin(frameCount * 2 + n) * 3;
+                x += sway;
+                y += sway;
+
+                // Warna gradasi senja (Jingga ke Ungu)
+                let hu = map(n, 0, 250, 10, 300);
+                fill(hu, 70, 90, 0.8);
+                noStroke();
+                
+                // Menggambar kelopak berbentuk oval kecil
+                push();
+                translate(x, y);
+                rotate(a + frameCount * 0.5);
+                ellipse(0, 0, 10, 15);
+                pop();
+            }
+        }
+
+        // Agar ukuran menyesuaikan layar jika browser di-resize
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>
